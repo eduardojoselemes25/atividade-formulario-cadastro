@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario Cadastro:</title>
+    <style>
+        body {
+            background-color:rgb(104, 114, 255);
+        }
+
+        label {
+            display: block;
+            margin-top: 20px;
+        }
+
+        form {
+            width: 300px;
+            margin: auto;
+            border: 1px solid black;
+            padding: 20px;
+            background-color: white;
+        }
+
+        input[type="text"],
+        textarea {
+            width: 90%;
+        }
+
+        select {
+            width: 150px;
+        }
+    </style>
+    <script>
+        function cadastrar() {
+            // Obter todas os inputs do document
+            let passou = true;
+            vet_inputs = document.getElementsByTagName("input");
+            for (i = 0; i < vet_inputs.length; i++) {
+                if ((vet_inputs[i].type == "text") && (vet_inputs[i].value == "")) {
+                    alert(`O Campo ${vet_inputs[i].name} está vazio!!!`);
+                    passou = false;
+                    break;
+                }
+            }
+
+            if (passou) {
+                //Validar Sexo
+                if (document.form1.sexo[0].checked == false &&
+                    document.form1.sexo[1].checked == false) {
+                    alert('Por favor, selecione o Sexo.');
+                    passou = false;
+                } else {
+                    // Valida Estado Civil
+                    let selectEstCivil = document.getElementById("selectEstCivil");
+                    let estCivil = selectEstCivil.options[selectEstCivil.selectedIndex].value;
+                    if (estCivil == "") {
+                        alert("Selecione o ESTADO CIVIL!");
+                        passou = false;
+                    } else {
+                        // valida Text Area
+                        if (document.form1.sugestoes.value == "") {
+                            alert('Por favor, colocar sugestôes.');
+                            passou = false;
+                        } else {
+                            alert('Cadastro realizado com Sucesso!');
+                        }
+                    }
+                }
+            }
+        }
+
+        function limpar() {
+            vet_inputs = document.getElementsByTagName("input");
+            for (i = 0; i < vet_inputs.length; i++) {
+                if ((vet_inputs[i].type == "text") && (vet_inputs[i].value != "")) {
+                    vet_inputs[i].value = "";
+                }
+            }
+            document.getElementById("selectEstCivil").selectedIndex = 0;
+            document.form1.sexo[0].checked = false;
+            document.form1.sexo[1].checked = false;
+            document.form1.sugestoes.value = "";
+        }
+    </script>
+</head>
+
+<body>
+    <form name="form1">
+        <p>
+            <label for="txtNome">Nome:</label>
+            <input type="text" id="txtNome" name="NOME">
+        </p>
+
+        <p>
+            <label for="txtEndereco">Endereço:</label>
+            <input type="text" id="txtEndereco" name="ENDEREÇO">
+        </p>
+
+        <p>
+            <label for="txtFone">Telefone:</label>
+            <input type="text" id="txtFone" name="TELEFONE">
+        </p>
+
+        <p>
+            <label for="txtCidade">Cidade:</label>
+            <input type="text" id="txtCidade" name="CIDADE">
+        </p>
+
+        <p>
+            <label for="txtPais">País:</label>
+            <input type="text" id="txtPais" name="PAÍS">
+        </p>
+
+        <p>
+            <label for="txtEstado">Estado:</label>
+            <input type="text" id="txtEstado" name="ESTADO">
+        </p>
+
+        <p>
+            <label for="sexoM">Masculino</label>
+            <input type="radio" id="sexoM" name="sexo" value="masculino">
+
+            <label for="sexoF">Feminino</label>
+            <input type="radio" id="sexoF" name="sexo" value="feminino">
+        </p>
+
+        <p>
+            <label for="estCivil">Estado Civil</label>
+            <select id="selectEstCivil">
+                <option></option>
+                <option>Casado</option>
+                <option>Solteiro</option>
+                <option>Divorciado</option>
+                <option>Viúvo</option>
+            </select>
+        </p>
+
+        <p>Sugestões:</p>
+        <p>
+            <textarea name="sugestoes" id="sugestoes" cols="100" rows="5"></textarea>
+        </p>
+        <input type="button" value="Cadastrar" onclick="cadastrar()">
+        <input type="button" value="Limpar" onclick="limpar()">
+    </form>
+</body>
+
+</html>
